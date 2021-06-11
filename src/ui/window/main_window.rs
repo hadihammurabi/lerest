@@ -21,13 +21,13 @@ pub fn build(app: &gtk::Application) {
   win.set_application(Some(app));
 
   let btn_req_send: gtk::Button = builder.get_object("btn_req_send").unwrap();
+  let text_res_data: gtk::TextView = builder.get_object("text_res_data").unwrap();
+  let entry_req_uri: gtk::Entry = builder.get_object("entry_req_uri").unwrap();
+  let combo_req_method: gtk::ComboBox = builder.get_object("combo_req_method").unwrap();
+  let label_res_status: gtk::Label = builder.get_object("label_res_status").unwrap();
+  
   btn_req_send.connect_clicked(move |_btn| {
-    let text_res_data: gtk::TextView = builder.get_object("text_res_data").unwrap();
-    let entry_req_uri: gtk::Entry = builder.get_object("entry_req_uri").unwrap();
-    let combo_req_method: gtk::ComboBox = builder.get_object("combo_req_method").unwrap();
-    let label_res_status: gtk::Label = builder.get_object("label_res_status").unwrap();
     let req_method: &str = &get_req_method_from_index(combo_req_method.get_active().unwrap() as u8);
-
     let data = ureq::builder()
       .build()
       .request(req_method, &*entry_req_uri.get_text().to_string())
