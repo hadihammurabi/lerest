@@ -5,6 +5,7 @@ use gio::prelude::*;
 use std::env;
 
 mod ui;
+mod handler;
 
 fn main() {
     let uiapp = gtk::Application::new(Some("com.github.lerest"), gio::ApplicationFlags::FLAGS_NONE)
