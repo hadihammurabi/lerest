@@ -1,6 +1,6 @@
 extern crate gtk;
 use gtk::prelude::*;
-use reqwest;
+use ureq;
 
 pub fn build(app: &gtk::Application) {
   let glade_src = include_str!("main_window.ui");
@@ -13,8 +13,12 @@ pub fn build(app: &gtk::Application) {
     let text_res_data: gtk::TextView = builder.get_object("text_res_data").unwrap();
     let entry_req_uri: gtk::Entry = builder.get_object("entry_req_uri").unwrap();
 
-    let data = reqwest::blocking::get(&*entry_req_uri.get_text().to_string()).unwrap();
-    text_res_data.get_buffer().unwrap().set_text(&data.text().unwrap());
+    let data = ureq::builder()
+      .build()
+      .request("GET", &*entry_req_uri.get_text().to_string())
+      .call().unwrap();
+
+    text_res_data.get_buffer().unwrap().set_text(&data.into_string().unwrap());
   });
 
   win.show_all();
