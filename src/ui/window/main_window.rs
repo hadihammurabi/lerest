@@ -2,6 +2,18 @@ extern crate gtk;
 use gtk::prelude::*;
 use ureq;
 
+fn get_req_method_from_index(index: u8) -> String {
+  let method = match index {
+    1 => "POST",
+    2 => "PUT",
+    3 => "PATCH",
+    4 => "DELETE",
+    _u8 => "GET",
+  };
+
+  method.to_string()
+}
+
 pub fn build(app: &gtk::Application) {
   let glade_src = include_str!("main_window.ui");
   let builder = gtk::Builder::from_string(glade_src);
@@ -12,10 +24,12 @@ pub fn build(app: &gtk::Application) {
   btn_req_send.connect_clicked(move |_btn| {
     let text_res_data: gtk::TextView = builder.get_object("text_res_data").unwrap();
     let entry_req_uri: gtk::Entry = builder.get_object("entry_req_uri").unwrap();
+    let combo_req_method: gtk::ComboBox = builder.get_object("combo_req_method").unwrap();
+    let req_method: &str = &get_req_method_from_index(combo_req_method.get_active().unwrap() as u8);
 
     let data = ureq::builder()
       .build()
-      .request("GET", &*entry_req_uri.get_text().to_string())
+      .request(req_method, &*entry_req_uri.get_text().to_string())
       .call().unwrap();
 
     text_res_data.get_buffer().unwrap().set_text(&data.into_string().unwrap());
