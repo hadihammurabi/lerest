@@ -41,6 +41,7 @@
                           <object class="GtkComboBoxText" id="combo_req_method">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="tooltip-text" translatable="yes">Request method</property>
                             <property name="active">0</property>
                             <items>
                               <item id="req_get" translatable="yes">GET</item>
@@ -60,6 +61,7 @@
                           <object class="GtkEntry" id="entry_req_uri">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="tooltip-text" translatable="yes">Request URI</property>
                             <property name="margin-left">5</property>
                             <property name="margin-right">5</property>
                             <property name="placeholder-text" translatable="yes">Request URI</property>
@@ -76,6 +78,7 @@
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="receives-default">True</property>
+                            <property name="tooltip-text" translatable="yes">Send request</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -228,6 +231,7 @@
                           <object class="GtkTextView" id="text_res_data">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="tooltip-text" translatable="yes">Response body</property>
                             <property name="editable">False</property>
                             <property name="justification">fill</property>
                             <property name="monospace">True</property>
